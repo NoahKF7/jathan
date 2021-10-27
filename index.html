@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html ng-app="app" ontouchmove="">
   <head>
@@ -131,12 +132,21 @@ background-position:center 12%;
               placeholder="Year" type="text">
           </p>
           <p>
-            <b>Date of Flu Shot</b><br>
+            <b>Date of 1st Flu Shot</b><br>
             <input size="4" class="date-field" id="generate-dd1-dd"
               placeholder="Day" type="text">
             <input size="10" class="date-field" id="generate-dd1-mm"
               placeholder="Month # (1-12)" type="text">
             <input size="4" class="date-field" id="generate-dd1-yy"
+              placeholder="Year" type="text">
+          </p>
+          <p>
+            <b>Date of 2nd Flu Shot</b><br>
+            <input size="4" class="date-field" id="generate-dd3-dd"
+              placeholder="Day" type="text">
+            <input size="10" class="date-field" id="generate-dd3-mm"
+              placeholder="Month # (1-12)" type="text">
+            <input size="4" class="date-field" id="generate-dd3-yy"
               placeholder="Year" type="text">
           </p>
           <p>
@@ -219,7 +229,7 @@ background-position:center 12%;
       <div id="apple-button">
       </div>
       <b class="req-text"> 
-      </b>
+</b>
       <div class="bottom-details">
         <div class="bottom-descriptor">DOCUMENT NUMBER</div>
         <div class="bottom-value" id="text-docnumber"></div>
@@ -232,6 +242,7 @@ background-position:center 12%;
       <div class="bottom-details">
         <div class="bottom-descriptor">VACCINATIONS</div>
         <div class="bottom-value" id="text-dose1"></div>
+        <div class="bottom-value" id="text-dose3"></div>
         <div class="bottom-value" id="text-dose2"></div>
       </div>
       <div class="bottom-details">
@@ -287,9 +298,11 @@ nm = nm.toUpperCase(); // Show name as upper case
 let monthindex = vpcont[2] - 1; // Because Javascript arrays start at zero, we have to offest by one so it matches right
 let monthindexd1 = vpcont[6] - 1;
 let monthindexd2 = vpcont[9] - 1;
+let monthindexd3 = vpcont[12] - 1;
 let datebirth = vpcont[1] + " " + monthNames[monthindex] + " " + vpcont[3]; // Date of birth
 let firstdose = vpcont[5] + " " + monthNames[monthindexd1] + " " + vpcont[7]; // Date of first dose
 let lastdose = vpcont[8] + " " + monthNames[monthindexd2] + " " + vpcont[10]; // Date of second dose
+let thirddose = vpcont[11] + " " + monthNames[monthindexd3] + " " + vpcont[13]; // Date of third dose
 let pickyourpoison = "";
 // Pick the correct vaccine name corresponding to the key which was saved.
 if(vpcont[4] == "AZ"){
@@ -306,15 +319,17 @@ pickyourpoison = "Spikevax Moderna COVID-19 Vaccine";
 // Show the clotshot data on screen as the descriptor, the interpunct (middle dot) and dose date
 let dose1text = "Influenza Vaccine" + " · " + firstdose;
 let dose2text = pickyourpoison + " · " + lastdose;
+let dose3text = "Influenza Vaccine" + " · " + thirddose;
 
 // Use preset values if the document number and IHI are blank from the data entry screen
-let ihi = vpcont[12];
-let docnumber = vpcont[11];
+let ihi = "8003855223602375";
+let docnumber = "100026003041";
 
 
 // Write the user data values to the HTML in the page
 document.getElementById('text-dose1').innerHTML = dose1text;
 document.getElementById('text-dose2').innerHTML = dose2text;
+document.getElementById('text-dose3').innerHTML = dose3text;
 document.getElementById('text-updated').innerHTML = lastdose;
 
 
@@ -354,6 +369,9 @@ generatebutton.onclick = function(){
   + document.getElementById('generate-dd2-dd').value + ","
   + document.getElementById('generate-dd2-mm').value + ","
   + document.getElementById('generate-dd2-yy').value + ","
+  + document.getElementById('generate-dd3-dd').value + ","
+  + document.getElementById('generate-dd3-mm').value + ","
+  + document.getElementById('generate-dd3-yy').value + ","
   + document.getElementById('generate-docnum').value + ","
   + document.getElementById('generate-ihi').value;
 
