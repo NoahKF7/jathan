@@ -1,5 +1,8 @@
 
 
+
+
+
 <!DOCTYPE html>
 <html ng-app="app" ontouchmove="">
   <head>
@@ -68,14 +71,14 @@ background-position:center 12%;
 
 
 .modal {
-  display: none; 
+  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%; 
-  overflow: auto; 
+  height: 100%;
+  overflow: auto;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 }
@@ -127,7 +130,7 @@ background-position:center 12%;
             <input class="date-field" id="generate-dob-dd" size="4"
               placeholder="Day" type="text">
             <input size="10" class="date-field" id="generate-dob-mm"
-              placeholder="Month # (1-12)" type="text">
+              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
             <input size="4" class="date-field" id="generate-dob-yy"
               placeholder="Year" type="text">
           </p>
@@ -136,7 +139,7 @@ background-position:center 12%;
             <input size="4" class="date-field" id="generate-dd1-dd"
               placeholder="Day" type="text">
             <input size="10" class="date-field" id="generate-dd1-mm"
-              placeholder="Month # (1-12)" type="text">
+              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
             <input size="4" class="date-field" id="generate-dd1-yy"
               placeholder="Year" type="text">
           </p>
@@ -145,7 +148,7 @@ background-position:center 12%;
             <input size="4" class="date-field" id="generate-dd3-dd"
               placeholder="Day" type="text">
             <input size="10" class="date-field" id="generate-dd3-mm"
-              placeholder="Month # (1-12)" type="text">
+              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
             <input size="4" class="date-field" id="generate-dd3-yy"
               placeholder="Year" type="text">
           </p>
@@ -154,8 +157,17 @@ background-position:center 12%;
             <input size="4" class="date-field" id="generate-dd2-dd"
               placeholder="Day" type="text">
             <input size="10" class="date-field" id="generate-dd2-mm"
-              placeholder="Month # (1-12)" type="text">
+              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
             <input size="4" class="date-field" id="generate-dd2-yy"
+              placeholder="Year" type="text">
+          </p>
+		  <p>
+            <b>Date of dose 2</b><br>
+            <input size="4" class="date-field" id="generate-dd4-dd"
+              placeholder="Day" type="text">
+            <input size="10" class="date-field" id="generate-dd4-mm"
+              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
+            <input size="4" class="date-field" id="generate-dd4-yy"
               placeholder="Year" type="text">
           </p>
           <p>
@@ -164,6 +176,22 @@ background-position:center 12%;
               <option value="AZ" selected="selected">AstraZeneca</option>
               <option value="PF">Pfizer</option>
               <option value="MD">Moderna</option>
+              <option value="NONE">None</option>
+            </select>
+          </p>
+		  <p>
+            <b>How Many Flu Shots?</b><br>
+            <select id="generate-flu">
+              <option value="ONE" selected="selected">1</option>
+              <option value="TWO">2</option>
+              <option value="NONE">None</option>
+            </select>
+          </p>
+		  <p>
+            <b>How Many Covid Vax Doses?</b><br>
+            <select id="generate-vaxnum">
+              <option value="xONE" selected="selected">1</option>
+              <option value="xTWO">2</option>
             </select>
           </p>
           <p>
@@ -228,7 +256,7 @@ background-position:center 12%;
       <div class="savebutton">Save offline</div>
       <div id="apple-button">
       </div>
-      <b class="req-text"> 
+      <b class="req-text" id='dosestatus'>
 </b>
       <div class="bottom-details">
         <div class="bottom-descriptor">DOCUMENT NUMBER</div>
@@ -244,6 +272,7 @@ background-position:center 12%;
         <div class="bottom-value" id="text-dose1"></div>
         <div class="bottom-value" id="text-dose3"></div>
         <div class="bottom-value" id="text-dose2"></div>
+		<div class="bottom-value" id="text-dose4"></div>
       </div>
       <div class="bottom-details">
         <div class="bottom-descriptor">LAST UPDATED</div>
@@ -266,7 +295,6 @@ background-position:center 12%;
 if(localStorage.getItem("vxpdat") == null){
   document.getElementById("myModal").style.display = "block";
 }
-
 // Correspond month number to an abbreviated name
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -295,32 +323,124 @@ let cookiecontent = localStorage.getItem("vxpdat") + " "; // Fetch data from loc
 let vpcont = cookiecontent.split(','); // Convert comma delimited string from local storage into an array
 let nm = vpcont[0]; // Name
 nm = nm.toUpperCase(); // Show name as upper case
-let monthindex = vpcont[2] - 1; // Because Javascript arrays start at zero, we have to offest by one so it matches right
+// Because Javascript arrays start at zero, we have to offest by one so it matches right
+let monthindex = vpcont[2] - 1;
 let monthindexd1 = vpcont[6] - 1;
 let monthindexd2 = vpcont[9] - 1;
 let monthindexd3 = vpcont[12] - 1;
-let datebirth = vpcont[1] + " " + monthNames[monthindex] + " " + vpcont[3]; // Date of birth
-let firstdose = vpcont[5] + " " + monthNames[monthindexd1] + " " + vpcont[7]; // Date of first dose
-let lastdose = vpcont[8] + " " + monthNames[monthindexd2] + " " + vpcont[10]; // Date of second dose
-let thirddose = vpcont[11] + " " + monthNames[monthindexd3] + " " + vpcont[13]; // Date of third dose
+let monthindexd4 = vpcont[15] - 1;
+
+let datebirth = vpcont[1] + " " + vpcont[2] + " " + vpcont[3]; // Date of birth
+let firstdose = vpcont[6] + " " + vpcont[7] + " " + vpcont[8]; // Date of first dose
+let lastdose = vpcont[9] + " " + vpcont[10] + " " + vpcont[11]; // Date of second dose
+let thirddose = vpcont[12] + " " + vpcont[13] + " " + vpcont[14]; // Date of third dose
+let fourthdose = vpcont[15] + " " + vpcont[16] + " " + vpcont[17]; // Date of third dose
 let pickyourpoison = "";
+let poison2 = "";
+let flushot = "";
+let flushot2 = "";
 // Pick the correct vaccine name corresponding to the key which was saved.
+console.log(vpcont[20]);
+console.log(vpcont[0]);
+console.log(vpcont[1]);
+console.log(vpcont[2]);
+console.log(vpcont[3]);
+console.log(vpcont[4]);
+console.log(vpcont[5]);
+console.log(vpcont[6]);
+console.log(vpcont[7]);
+console.log(vpcont[8]);
+console.log(vpcont[9]);
+console.log(vpcont[10]);
+console.log(vpcont[11]);
+console.log(vpcont[12]);
+console.log(vpcont[13]);
+console.log(vpcont[14]);
+console.log(vpcont[15]);
+console.log(vpcont[16]);
+console.log(vpcont[17]);
+console.log(vpcont[18]);
+console.log(vpcont[19]);
+console.log(vpcont[20]);
+console.log(poison2);
+
+
 if(vpcont[4] == "AZ"){
-pickyourpoison = "COVID-19 Vaccine AstraZeneca";
+pickyourpoison = "COVID-19 Vaccine AstraZeneca  · ";
 }
 else if(vpcont[4] == "PF"){
-pickyourpoison = "Pfizer Comirnaty";
+pickyourpoison = "Pfizer Comirnaty  · ";
+}
+else if(vpcont[4] == "MD"){
+pickyourpoison = "Spikevax Moderna COVID-19 Vaccine  · ";
 }
 else{
 // To do: find the proper name being used on the passes, this is just a rough guess.
-pickyourpoison = "Spikevax Moderna COVID-19 Vaccine"; 
+pickyourpoison = " ";
+}
+if(vpcont[20] == "xONE") {
+poison2 = " ";
+}
+else{
+if(vpcont[4] == "AZ"){
+poison2 = "COVID-19 Vaccine AstraZeneca  · ";
+}
+if(vpcont[4] == "PF"){
+poison2 = "Pfizer Comirnaty  · ";
+}
+if(vpcont[4] == "MD"){
+poison2 = "Spikevax Moderna COVID-19 Vaccine  · ";
+}
+}
+
+if(vpcont[5] == "ONE"){
+flushot2 = " "
+}
+else if(vpcont[5] == "TWO"){
+flushot2 = "Influenza Vaccine · "
+}
+else{
+flushot2 = " "
+}
+if(vpcont[5] == "ONE"){
+flushot = "Influenza Vaccine · "
+}
+else if(vpcont[5] == "TWO"){
+flushot = "Influenza Vaccine · "
+}
+else{
+flushot = " "
 }
 
 // Show the clotshot data on screen as the descriptor, the interpunct (middle dot) and dose date
-let dose1text = "Influenza Vaccine" + " · " + firstdose;
-let dose2text = pickyourpoison + " · " + lastdose;
-let dose3text = "Influenza Vaccine" + " · " + thirddose;
+let dose1text = flushot + firstdose;
+let dose2text = pickyourpoison + lastdose;
+let dose3text = flushot2 + thirddose;
+let dose4text = poison2 + fourthdose;
 
+let dosestatustext = ""
+console.log(vpcont[20] == "xONE");
+if(vpcont[20] == "xONE"){
+dosestatustext = " ";
+}
+else{
+dosestatustext = "This individual has received all required COVID-19 vaccinations.";
+}
+
+if(dose4text = "COVID-19 Vaccine AstraZeneca  · " && vpcont[20] == "xONE ") {
+dose4text = " "
+}
+if(dose4text = "Pfizer Comirnaty  · " && vpcont[20] == "xONE ") {
+dose4text = " "
+}
+if(dose4text = "Spikevax Moderna COVID-19 Vaccine  · " && vpcont[20] == "xONE ") {
+dose4text = " "
+}
+else{
+dose4text = poison2 + fourthdose;
+}
+
+console.log(vpcont[20] == "xONE ");
 // Use preset values if the document number and IHI are blank from the data entry screen
 let ihi = "8003855223602375";
 let docnumber = "100026003041";
@@ -330,8 +450,13 @@ let docnumber = "100026003041";
 document.getElementById('text-dose1').innerHTML = dose1text;
 document.getElementById('text-dose2').innerHTML = dose2text;
 document.getElementById('text-dose3').innerHTML = dose3text;
+document.getElementById('text-dose4').innerHTML = dose4text;
+if(vpcont[20] == "xONE "){
 document.getElementById('text-updated').innerHTML = lastdose;
-
+}
+else{
+document.getElementById('text-updated').innerHTML = fourthdose;
+}
 
 if(ihi==" "|| ihi == ""){document.getElementById('text-ihi').innerHTML = "8001855223602375";}
 else{document.getElementById('text-ihi').innerHTML = ihi;}
@@ -344,6 +469,14 @@ document.getElementById('text-dateofbirth').innerHTML = datebirth;
 document.getElementById('text-name').innerHTML = nm;
 document.getElementById('text-validfrom').innerHTML = lastdose;
 
+if(vpcont[20] == "xONE "){
+document.getElementById('text-validfrom').innerHTML = lastdose;
+}
+else{
+document.getElementById('text-validfrom').innerHTML = fourthdose;
+}
+
+document.getElementById('dosestatus').innerHTML = dosestatustext;
 
 // Show "add to apple wallet" only if the user is on an apple device
 if(navigator.userAgent.includes("iPhone")){
@@ -352,7 +485,6 @@ document.getElementById('apple-button').innerHTML = "<img class='applewallet' sr
 
 // Refer to the data entry screen as a shorter name for later access
 var modal = document.getElementById("myModal");
-
 
 // When the generate button is clicked on the menu, combine all added values
 // as a comma delimited string for storage
@@ -363,6 +495,7 @@ generatebutton.onclick = function(){
   + document.getElementById('generate-dob-mm').value + ","
   + document.getElementById('generate-dob-yy').value + ","
   + document.getElementById('generate-vax').value + ","
+  + document.getElementById('generate-flu').value + ","
   + document.getElementById('generate-dd1-dd').value + ","
   + document.getElementById('generate-dd1-mm').value + ","
   + document.getElementById('generate-dd1-yy').value + ","
@@ -372,13 +505,21 @@ generatebutton.onclick = function(){
   + document.getElementById('generate-dd3-dd').value + ","
   + document.getElementById('generate-dd3-mm').value + ","
   + document.getElementById('generate-dd3-yy').value + ","
+  + document.getElementById('generate-dd4-dd').value + ","
+  + document.getElementById('generate-dd4-mm').value + ","
+  + document.getElementById('generate-dd4-yy').value + ","
   + document.getElementById('generate-docnum').value + ","
-  + document.getElementById('generate-ihi').value;
+  + document.getElementById('generate-ihi').value + ","
+  + document.getElementById('generate-vaxnum').value + ","
+  + document.getElementById('dosestatus').value;
 
   // Pointy brackets would cause issues and break things so they are filtered out. There's no need to even enter them
   // for this purpose anyway.
   savethis = savethis.replace(/>/g, " ");
-  savethis = savethis.replace(/</g, " "); 
+  savethis = savethis.replace(/</g, " ");
+  savethis = savethis.replace(/NONE/g, " ");
+
+
 
   // Save data array to a local storage item cached in the browser
   localStorage.setItem("vxpdat", savethis);
