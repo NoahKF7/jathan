@@ -1,11 +1,4 @@
-
-
-
-
-
-<!DOCTYPE html>
-<html ng-app="app" ontouchmove="">
-  <head>
+<html ng-app="app" ontouchmove=""><head>
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
@@ -116,13 +109,15 @@ background-position:center 12%;
       <noscript>
 <h2>This site doesn't work without Javascript, you'll need to turn it on for this site</h2>
 </noscript>
-      <div id="myModal" class="modal">
+      <div id="myModal" class="modal" style="display: block;">
         <div class="modal-content">
           <h2 style="margin-top:0px">Welcome to the very real, medicare vax certification</h2>
-	  <p>NEW FEATURES! 
-		  - New month format, be careful and read carefully when entering.
-		  - 1 or 2 flu shot options
-		  - 1 or 2 vax options</p>
+            	  <p>NEW FEATURES and DISCLAIMERS!</p> 
+		 <p> - New month format, be careful and read carefully when entering.</p>
+		 <p> - 1 or 2 flu shot options </p>
+		 <p> - 1 or 2 vax options</p>
+		 <p> - If you only want a single flu shot, leave second flu shot dates empty</p>
+		 <p> - If you only want a single vax dose, leave second vax dose dates empty</p>
           <p>Please input the data needed to make the confirmation here.</p>
           <p>
             <b>First &amp; Last Name</b><br>
@@ -130,48 +125,33 @@ background-position:center 12%;
           </p>
           <p>
             <b>Date of Birth</b><br>
-            <input class="date-field" id="generate-dob-dd" size="4"
-              placeholder="Day" type="text">
-            <input size="10" class="date-field" id="generate-dob-mm"
-              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
-            <input size="4" class="date-field" id="generate-dob-yy"
-              placeholder="Year" type="text">
+            <input class="date-field" id="generate-dob-dd" size="4" placeholder="Day" type="text">
+            <input size="10" class="date-field" id="generate-dob-mm" placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
+            <input size="4" class="date-field" id="generate-dob-yy" placeholder="Year" type="text">
           </p>
           <p>
             <b>Date of 1st Flu Shot</b><br>
-            <input size="4" class="date-field" id="generate-dd1-dd"
-              placeholder="Day" type="text">
-            <input size="10" class="date-field" id="generate-dd1-mm"
-              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
-            <input size="4" class="date-field" id="generate-dd1-yy"
-              placeholder="Year" type="text">
+            <input size="4" class="date-field" id="generate-dd1-dd" placeholder="Day" type="text">
+            <input size="10" class="date-field" id="generate-dd1-mm" placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
+            <input size="4" class="date-field" id="generate-dd1-yy" placeholder="Year" type="text">
           </p>
           <p>
             <b>Date of 2nd Flu Shot</b><br>
-            <input size="4" class="date-field" id="generate-dd3-dd"
-              placeholder="Day" type="text">
-            <input size="10" class="date-field" id="generate-dd3-mm"
-              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
-            <input size="4" class="date-field" id="generate-dd3-yy"
-              placeholder="Year" type="text">
+            <input size="4" class="date-field" id="generate-dd3-dd" placeholder="Day" type="text">
+            <input size="10" class="date-field" id="generate-dd3-mm" placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
+            <input size="4" class="date-field" id="generate-dd3-yy" placeholder="Year" type="text">
           </p>
           <p>
             <b>Date of dose 1</b><br>
-            <input size="4" class="date-field" id="generate-dd2-dd"
-              placeholder="Day" type="text">
-            <input size="10" class="date-field" id="generate-dd2-mm"
-              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
-            <input size="4" class="date-field" id="generate-dd2-yy"
-              placeholder="Year" type="text">
+            <input size="4" class="date-field" id="generate-dd2-dd" placeholder="Day" type="text">
+            <input size="10" class="date-field" id="generate-dd2-mm" placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
+            <input size="4" class="date-field" id="generate-dd2-yy" placeholder="Year" type="text">
           </p>
 		  <p>
             <b>Date of dose 2</b><br>
-            <input size="4" class="date-field" id="generate-dd4-dd"
-              placeholder="Day" type="text">
-            <input size="10" class="date-field" id="generate-dd4-mm"
-              placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
-            <input size="4" class="date-field" id="generate-dd4-yy"
-              placeholder="Year" type="text">
+            <input size="4" class="date-field" id="generate-dd4-dd" placeholder="Day" type="text">
+            <input size="10" class="date-field" id="generate-dd4-mm" placeholder="Month (First three letters, First letter uppercase. e.g. Oct, Apr, Mar, etc.)" type="text">
+            <input size="4" class="date-field" id="generate-dd4-yy" placeholder="Year" type="text">
           </p>
           <p>
             <b>Vaccine</b><br>
@@ -205,8 +185,7 @@ background-position:center 12%;
           <p>
             <b>IHI</b><br>
             this one is random or you can do your own<br>
-            <input value="8003855223602375" id="generate-ihi"
-              type="text">
+            <input value="8003855223602375" id="generate-ihi" type="text">
           </p>
           <p>
             <button id="generate-button">Generate</button>
@@ -244,42 +223,41 @@ background-position:center 12%;
         </div>
         <div class="bottomhalf">
           <div class="descriptor">NAME</div>
-          <div class="info" id="text-name"></div>
+          <div class="info" id="text-name">NULL </div>
           <br>
           <div class="descriptor">DATE OF BIRTH</div>
-          <div class="info" id="text-dateofbirth"></div>
+          <div class="info" id="text-dateofbirth">undefined undefined undefined</div>
           <br>
           <div class="validfrom">
             <div class="descriptor">VALID FROM</div>
-            <div class="info" id="text-validfrom"></div>
+            <div class="info" id="text-validfrom">undefined undefined undefined</div>
           </div>
-          <div class="clock" id="txt"></div>
+          <div class="clock" id="txt">28 Oct 2021 23:39:42</div>
         </div>
       </div>
       <div class="savebutton">Save offline</div>
       <div id="apple-button">
       </div>
-      <b class="req-text" id='dosestatus'>
-</b>
+      <b class="req-text" id="dosestatus">This individual has received all required COVID-19 vaccinations.</b>
       <div class="bottom-details">
         <div class="bottom-descriptor">DOCUMENT NUMBER</div>
-        <div class="bottom-value" id="text-docnumber"></div>
+        <div class="bottom-value" id="text-docnumber">100026003041</div>
       </div>
       <div class="bottom-details">
         <div class="bottom-descriptor">INDIVIDUAL HEALTHCARE IDENTIFIER
           (IHI)</div>
-        <div class="bottom-value" id="text-ihi"></div>
+        <div class="bottom-value" id="text-ihi">8003855223602375</div>
       </div>
       <div class="bottom-details">
         <div class="bottom-descriptor">VACCINATIONS</div>
-        <div class="bottom-value" id="text-dose1"></div>
-        <div class="bottom-value" id="text-dose3"></div>
-        <div class="bottom-value" id="text-dose2"></div>
-		<div class="bottom-value" id="text-dose4"></div>
+        <div class="bottom-value" id="text-dose1"> undefined undefined undefined</div>
+        <div class="bottom-value" id="text-dose3"> undefined undefined undefined</div>
+        <div class="bottom-value" id="text-dose2"> undefined undefined undefined</div>
+		<div class="bottom-value" id="text-dose4">undefined undefined undefined</div>
       </div>
       <div class="bottom-details">
         <div class="bottom-descriptor">LAST UPDATED</div>
-        <div class="bottom-value" id="text-updated"></div>
+        <div class="bottom-value" id="text-updated">undefined undefined undefined</div>
       </div>
       <div class="bottom-details">
         <div class="bottom-descriptor">DISCLAIMER</div>
@@ -539,5 +517,6 @@ generatebutton.onclick = function(){
 // Tidy and comment css
 
 </script>
-  </body>
-</html>
+  
+
+</body></html>
