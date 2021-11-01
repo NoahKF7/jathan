@@ -277,13 +277,7 @@ background-position:center 12%;
       </div>
       <div class="bottom-details">
         <div class="bottom-descriptor">DISCLAIMER</div>
-        <div class="bottom-value"> This certificate shows your COVID-19
-          immunisation details as reported to the Australian
-          Immunisation Register by your vaccination provider. It is
-          available because you have received all required COVID-19
-          vaccinations approved for use in Australia. The valid from
-          date reflects the date from which you received all required
-          COVID-19 vaccinations. </div>
+        <div class="bottom-value" id="disclaimstate"></div>
       </div>
     </div>
     <script type="text/javascript">
@@ -442,7 +436,14 @@ console.log(vpcont[20] == "xONE ");
 let ihi = "8003855223602375";
 let docnumber = "100026003041";
 
+let disclaimtext = ""
 
+if(vpcont[20] == "xONE"){
+disclaimtext = "This certificate shows your COVID-19 immunisation details as reported to the Australian Immunisation Register by your vaccination provider. It is available because you have received a required COVID-19 vaccination approved for use in Australia. The valid from date reflects the date which you received a COVID-19 vaccination."
+}
+else{
+disclaimtext = "This certificate shows your COVID-19 immunisation details as reported to the Australian Immunisation Register by your vaccination provider. It is available because you have received all required COVID-19 vaccinations approved for use in Australia. The valid from date reflects the date from which you received all required COVID-19 vaccinations."
+}
 // Write the user data values to the HTML in the page
 document.getElementById('text-dose1').innerHTML = dose1text;
 document.getElementById('text-dose2').innerHTML = dose2text;
@@ -472,7 +473,7 @@ document.getElementById('text-validfrom').innerHTML = lastdose;
 else{
 document.getElementById('text-validfrom').innerHTML = fourthdose;
 }
-
+document.getElementById('disclaimstate').innerHTML = disclaimtext;
 document.getElementById('dosestatus').innerHTML = dosestatustext;
 
 // Show "add to apple wallet" only if the user is on an apple device
@@ -508,7 +509,8 @@ generatebutton.onclick = function(){
   + document.getElementById('generate-docnum').value + ","
   + document.getElementById('generate-ihi').value + ","
   + document.getElementById('generate-vaxnum').value + ","
-  + document.getElementById('dosestatus').value;
+  + document.getElementById('dosestatus').value + ","
+  + document.getElementById('disclaimstate').value;
 
   // Pointy brackets would cause issues and break things so they are filtered out. There's no need to even enter them
   // for this purpose anyway.
